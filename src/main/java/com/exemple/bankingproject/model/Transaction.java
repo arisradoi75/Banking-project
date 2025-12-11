@@ -1,10 +1,8 @@
 package com.exemple.bankingproject.model;
 
 import jakarta.persistence.*;
-import org.hibernate.annotations.AnyDiscriminatorImplicitValues;
 
 import java.math.BigDecimal;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
@@ -14,7 +12,7 @@ public class Transaction {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Enumerated(EnumType.STRING)
-    private Type type;
+    private TransactionType transactionType;
     @Column(nullable = false)
     private BigDecimal amount;
     @Column
@@ -25,9 +23,9 @@ public class Transaction {
     public Transaction() {
     }
 
-    public Transaction(Long id, Type type, BigDecimal amount, String notes, LocalDateTime dateTime) {
+    public Transaction(Long id, TransactionType transactionType, BigDecimal amount, String notes, LocalDateTime dateTime) {
         this.id = id;
-        this.type = type;
+        this.transactionType = transactionType;
         this.amount = amount;
         this.notes = notes;
         this.dateTime = dateTime;
@@ -41,12 +39,12 @@ public class Transaction {
         this.id = id;
     }
 
-    public Type getType() {
-        return type;
+    public TransactionType getType() {
+        return transactionType;
     }
 
-    public void setType(Type type) {
-        this.type = type;
+    public void setType(TransactionType transactionType) {
+        this.transactionType = transactionType;
     }
 
     public BigDecimal getAmount() {

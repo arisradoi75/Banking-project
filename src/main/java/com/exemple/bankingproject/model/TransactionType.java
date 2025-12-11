@@ -1,6 +1,6 @@
 package com.exemple.bankingproject.model;
 
-public enum Type {
-    EXPENS,
+public enum TransactionType {
+    EXPENSE,
     INCOME
 }

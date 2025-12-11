@@ -11,43 +11,43 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 public class UserController {
 
-    @Autowired
-    private UserService userService;
+
+    private final UserService userService;
 
     public UserController(UserService userService) {
         this.userService = userService;
     }
 
     @GetMapping("/login")
-    public String loginPage(){
+    public String loginPage() {
         return "loggin";
     }
-@PostMapping("/login")
-    public String login(@RequestParam String username, @RequestParam String email ,@RequestParam String password, Model model){
-        if(userService.login(username , email , password)){
+
+    @PostMapping("/login")
+    public String login(@RequestParam String username, @RequestParam String email, @RequestParam String password, Model model) {
+        if (userService.login(username, email, password)) {
             return "redirect:/lista-transcatii";
-        } else{
+        } else {
             model.addAttribute("error", "Invalid username or password");
             return "login";
         }
     }
+
     @GetMapping("/register")
-    public String registerPage(){
+    public String registerPage() {
         return "register";
     }
 
     @PostMapping("/register")
-     public String registerPage(@RequestParam String username , @RequestParam String email , @RequestParam String password , Model model){
-        if(userService.register(username , email , password)){
-            model.addAttribute("succes" , "Cont creat cu succes!");
+    public String registerPage(@RequestParam String username, @RequestParam String email, @RequestParam String password, Model model) {
+        if (userService.register(username, email, password)) {
+            model.addAttribute("succes", "Cont creat cu succes!");
             return "register";
-        } else{
-            model.addAttribute("error" , "Username deja folosit");
+        } else {
+            model.addAttribute("error", "Username deja folosit");
             return "register";
         }
     }
-
-
 
 
 }
