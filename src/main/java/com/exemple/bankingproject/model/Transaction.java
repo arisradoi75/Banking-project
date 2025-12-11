@@ -8,8 +8,8 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "Transactions")
-public class Transcation {
+@Table(name = "transactions")
+public class Transaction {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -22,10 +22,10 @@ public class Transcation {
     @Column(nullable = false)
     private LocalDateTime dateTime;
 
-    public Transcation() {
+    public Transaction() {
     }
 
-    public Transcation(Long id, Type type, BigDecimal amount, String notes, LocalDateTime dateTime) {
+    public Transaction(Long id, Type type, BigDecimal amount, String notes, LocalDateTime dateTime) {
         this.id = id;
         this.type = type;
         this.amount = amount;
