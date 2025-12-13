@@ -1,6 +1,6 @@
-package com.exemple.bankingproject.config.dto;
+package com.exemple.bankingproject.dto;
 
-public class LoginRequest {
+public class RegisterRequest {
 
     private String username;
     private String password;
@@ -20,4 +20,5 @@ public class LoginRequest {
     public void setPassword(String password) {
         this.password = password;
     }
+
 }

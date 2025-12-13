@@ -1,5 +1,7 @@
 package com.exemple.bankingproject.controller;
 
+import com.exemple.bankingproject.dto.TransactionRequestDTO;
+import com.exemple.bankingproject.dto.TransactionResponseDTO;
 import com.exemple.bankingproject.model.Transaction;
 import com.exemple.bankingproject.model.TransactionType;
 import com.exemple.bankingproject.service.TransactionService;
@@ -14,27 +16,26 @@ import java.util.List;
 @RequestMapping("/api/transactions")
 public class TransactionController {
         private final TransactionService transactionService;
-    private final TransactionServiceImpl transactionServiceImpl;
 
-    public TransactionController(TransactionService transactionService, TransactionServiceImpl transactionServiceImpl) {
+
+    public TransactionController(TransactionService transactionService) {
             this.transactionService = transactionService;
-        this.transactionServiceImpl = transactionServiceImpl;
     }
 
         @GetMapping
-        public List<Transaction> getAllTransactions() {
+        public List<TransactionResponseDTO> getAllTransactions() {
             return transactionService.getTransactions();
         }
 
         @PostMapping
-        public Transaction createTransaction(@RequestBody Transaction transaction) {
-            return transactionService.saveTransaction(transaction);
+        public TransactionResponseDTO createTransaction(@RequestBody TransactionRequestDTO requestDTO) {
+                return transactionService.saveTransaction(requestDTO);
         }
 
         @PutMapping("/{id}")
-        public Transaction updateTransaction(@PathVariable Long id,@RequestBody Transaction transaction) {
-            transaction.setId(id);
-            return transactionService.updateTransaction(id, transaction);
+        public TransactionResponseDTO updateTransaction(@PathVariable Long id,@RequestBody TransactionRequestDTO requestDTO) {
+
+            return transactionService.updateTransaction(id, requestDTO);
         }
 
         @DeleteMapping("/{id}")
@@ -48,8 +49,8 @@ public class TransactionController {
                                                          @RequestParam(required = false) BigDecimal maxAmount,
                                                          @RequestParam(required = false) LocalDateTime beforeDate,
                                                          @RequestParam(required = false) LocalDateTime afterDate
-        )
+)
         {
-            return transactionServiceImpl.filterTransactions(type, minAmount, maxAmount, beforeDate, afterDate);
+            return transactionService.filterTransactions(type, minAmount, maxAmount, beforeDate, afterDate);
         }
 }

@@ -20,6 +20,9 @@ public class Transaction {
     @Column(nullable = false)
     private LocalDateTime dateTime;
 
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "category_id")
+    private Category category;
     public Transaction() {
     }
 
@@ -70,4 +73,14 @@ public class Transaction {
     public void setDateTime(LocalDateTime dateTime) {
         this.dateTime = dateTime;
     }
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
+    }
+
+
 }

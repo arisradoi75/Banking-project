@@ -1,8 +1,8 @@
 package com.exemple.bankingproject.controller;
 
 
-import com.exemple.bankingproject.config.dto.LoginRequest;
-import com.exemple.bankingproject.config.dto.RegisterRequest;
+import com.exemple.bankingproject.dto.LoginRequest;
+import com.exemple.bankingproject.dto.RegisterRequest;
 import com.exemple.bankingproject.service.UserService;
 import org.springframework.web.bind.annotation.*;
 
@@ -26,5 +26,6 @@ public class AuthController {
         boolean ok = userService.login(request.getUsername() , request.getPassword());
         return ok ? "LOGIN OK" : "LOGIN FAIL";
     }
+
 
 }
