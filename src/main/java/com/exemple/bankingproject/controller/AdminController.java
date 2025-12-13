@@ -2,6 +2,7 @@ package com.exemple.bankingproject.controller;
 
 import com.exemple.bankingproject.repository.UserRepository;
 import com.exemple.bankingproject.service.UserService;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -18,10 +19,15 @@ public class AdminController {
 
     @DeleteMapping("/delete")
     public String deleteUser(@RequestParam String adminUsername,
-                             @RequestParam String username){
+                             @RequestParam String username) {
+
+        System.out.println("ADMIN CONTROLLER CALLED");
+        System.out.println("adminUsername = " + adminUsername);
+        System.out.println("username = " + username);
+
         return userService.deleteUser(adminUsername , username)
                 ? "USER DELETED"
-                : "ACCES DENIED OR USER  NOT FOUND";
-
+                : "ACCES DENIED OR USER NOT FOUND";
     }
+
 }
