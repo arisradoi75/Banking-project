@@ -14,12 +14,18 @@ public class User {
     @Column(nullable = false)
     private String password;
 
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private UserType userType;
+
+
     public User() {
     }
 
-    public User(String username, String password) {
+    public User(String username, String password , UserType userType) {
         this.username = username;
         this.password = password;
+        this.userType = UserType.USER;
     }
 
     public Long getId() {
@@ -44,5 +50,13 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public UserType getUserType() {
+        return userType;
+    }
+
+    public void setUserType(UserType userType) {
+        this.userType = userType;
     }
 }
