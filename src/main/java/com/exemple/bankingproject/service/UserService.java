@@ -37,10 +37,7 @@ public class UserService {
         return user != null && passwordEncoder.matches(password , user.getPassword());
     }
 
-    public boolean deleteUser(String adminUsername , String usernameToDelete){
-        if(!isAdmin(adminUsername)){
-            return false;
-        }
+    public boolean deleteUser(String usernameToDelete){
         User user = userRepository.findByUsername(usernameToDelete);
         if(user == null){
             return false;
@@ -48,7 +45,5 @@ public class UserService {
         userRepository.delete(user);
         return true;
     }
-
-
 
 }

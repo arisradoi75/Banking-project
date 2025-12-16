@@ -1,7 +1,9 @@
 package com.exemple.bankingproject.controller;
 
 import com.exemple.bankingproject.repository.UserRepository;
+import com.exemple.bankingproject.service.JwtService;
 import com.exemple.bankingproject.service.UserService;
+import io.jsonwebtoken.Claims;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
@@ -9,25 +11,30 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/admin")
 public class AdminController {
 
-    private final UserRepository userRepository;
-    private UserService userService;
+    private final UserService userService;
+    private final JwtService jwtService;
 
-    public AdminController(UserService userService, UserRepository userRepository) {
+    public AdminController(UserService userService, JwtService jwtService) {
         this.userService = userService;
-        this.userRepository = userRepository;
+        this.jwtService = jwtService;
     }
 
     @DeleteMapping("/delete")
-    public String deleteUser(@RequestParam String adminUsername,
-                             @RequestParam String username) {
+    public String deleteUser(
+            @RequestHeader("Authorization") String authHeader,
+            @RequestParam String username
+    ) {
+        String token = authHeader.replace("Bearer ", "");
+        Claims claims = jwtService.parseToken(token);
 
-        System.out.println("ADMIN CONTROLLER CALLED");
-        System.out.println("adminUsername = " + adminUsername);
-        System.out.println("username = " + username);
+        String role = claims.get("role", String.class);
 
-        return userService.deleteUser(adminUsername , username)
-                ? "USER DELETED"
-                : "ACCES DENIED OR USER NOT FOUND";
+        if (!"ADMIN".equals(role)) {
+            return "ACCESS DENIED";
+        }
+
+        userService.deleteUser(username);
+        return "USER DELETED";
     }
-
 }
+

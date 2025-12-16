@@ -18,7 +18,7 @@ public class CategoryInitializer implements CommandLineRunner {
     public List<String> predefinedCategs = List.of("FOOD", "TRANSPORT", "RENT", "SALARY", "ENTERTAINMENT", "UTILITIES");
 
     @Override
-    public void run(String... args) throws Exception {
+    public void run(String...args) throws Exception {
         for (String name : predefinedCategs) {
             if(!categoryRepository.existsByCategoryName(name)){
                 Category category =  new Category();

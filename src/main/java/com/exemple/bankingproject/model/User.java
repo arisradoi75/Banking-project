@@ -25,7 +25,7 @@ public class User {
     public User(String username, String password , UserType userType) {
         this.username = username;
         this.password = password;
-        this.userType = UserType.USER;
+        this.userType = userType;
     }
 
     public Long getId() {
